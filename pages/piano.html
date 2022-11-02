@@ -2,9 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Piano!</title>
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
+
+<div class="container">
+
+    <div class="title">
+        <h1>Score Finder</h1>
+    </div>
+
+    <main>
+        <div class="piano-container">
+            <div class="tecla blanca" data-note="DO" id="do">
+                <div class="key negra" data-note="DO" id="do-sust"></div>
+            </div>
+            <div class="tecla blanca" data-note="RE" id="re">
+                <div class="key negra" data-note="RE#" id="re-sust"></div>
+            </div>
+            <div class="tecla blanca" data-note="MI" id="mi"></div>
+            <div class="tecla blanca" data-note="FA" id="fa">
+                <div class="tecla negra" data-note="FA#" id="fa-sust"></div>
+            </div>
+            <div class="tecla blanca" data-note="SOL" id="sol">
+                <div class="tecla negra" data-note="SOL#" id="sol-sust"></div>
+            </div>
+            <div class="tecla blanca" data-note="LA" id="la">
+                <div class="tecla negra" data-note="LA#" id="la-sust"></div>
+            </div>
+            <div class="tecla blanca" data-note="SI" id="si"></div>
+            <div class="tecla blanca" data-note="DO##" id="do7"></div>
+        </div>
+    </main>
+
+
+    <aside>
+        <div class="cerca-container">
+            <h2>CERCA UNA CANÇO</h2>
+            <label for="cercador"></label>
+            <input type="text" name="cercador" class="cercador" id="cercador">
+            <button class="del-btn">ESBORRAR</button>
+        </div>
+
+        <h2>RESULTATS:</h2>
+        <div class="resultats">
+
+            <div class="reproduir">
+                <p>Text exemple</p>
+                <button class="play-btn">REPRODUIR CANÇO</button>
+            </div>
+
+            <div class="reproduir">
+                <p>Text exemple</p>
+                <button class="play-btn">REPRODUIR CANÇO</button>
+            </div>
+
+            <div class="reproduir">
+                <p>Text exemple</p>
+                <button class="play-btn">REPRODUIR CANÇO</button>
+            </div>
+            <div class="reproduir">
+                <p>Text exemple</p>
+                <button class="play-btn">REPRODUIR CANÇO</button>
+            </div>
+        </div>
+    </aside>
+</div>
 
 </body>
 </html>
