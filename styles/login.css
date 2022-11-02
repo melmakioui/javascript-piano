@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif, "Courier New";
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 100px 1fr;
+    grid-template-areas:
+    "welc welc welc welc"
+    "main main main main";
+    gap: 10px;
+}
+
+/*Title*/
+
+.title {
+    grid-area: welc;
+    color: rgb(0, 0, 0);
+    font-size: x-large;
+    display: block;
+    margin: auto;
+}
+
+/*Main items*/
+
+main {
+    grid-area: main;
+    justify-self: center;
+}
+
+.formulari {
+    width: 400px;
+    height: 250px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.formulari > div {
+    width: 300px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.formulari > div > input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.formulari > input[type="submit"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
