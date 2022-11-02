@@ -15,4 +15,25 @@ function Cercador(partitures){
         this.cerca.push(novaNota)
     }
 
+    this.cercaPartitura = function (){
+         var i = 0;
+         var j = 0;
+         var resultats = [];
+
+        for (var melodia of this.partitures) {
+            while (i < melodia.partitura.length && j < this.cerca.length){
+                i++;
+                j++;
+                if (j === this.cera.length){
+                    resultats.push(canco);
+                }else {
+                    i = i - j + 1;
+                    j = 0;
+                }
+            }
+            i = 0;
+            j = 0;
+        }
+        return resultats;
+    }
 }
