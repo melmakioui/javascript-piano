@@ -67,3 +67,27 @@ while (contador < files) {
     contador++;
 }
 div.appendChild(table);
+
+function esborrar(element){
+    var confirmacio = window.confirm(
+        "'Està segur que vol esborrar l'element?"
+    );
+
+    if (confirmacio){
+        element.parentNode.parentNode.remove();
+        window.alert("S'ha eliminat la canço.");
+    }else window.alert("Has cancel·lat l'acció.");
+
+}
+
+function obriLogin() {
+    var width = 770;
+    var height = 500;
+    var top = (screen.height - 500) / 2;
+    var left = (screen.width - 770) / 2;
+    var login = window.open(
+        "./login.html",
+        "Log In",
+        `width=${width},height=${height},top=${top},left=${left}`
+    );
+}
