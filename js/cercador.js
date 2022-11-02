@@ -1,3 +1,8 @@
+function Partitura(titol,notes){
+    this.titol = titol;
+    this.notes = notes;
+}
+
 
 function Nota(nota,sostingut){
     this.nota = nota;
