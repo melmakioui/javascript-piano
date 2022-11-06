@@ -40,7 +40,7 @@ function Piano(){
         audio.play();
     }
 
-    this.autoPlay = function(partitura){
+    this.autoPlay = function(partitura,botoReproduir){
 
     }
 }
