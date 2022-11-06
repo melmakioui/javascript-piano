@@ -3,7 +3,6 @@ var div = document.querySelector(".content");
 var table = document.createElement('table');
 var thead = document.createElement('thead');
 var tbody = document.createElement('tbody');
-
 var contador = 0;
 var files = 97;
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Piano!</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="icon" type="image/x-icon" href="#">
 </head>
 <body>
 
@@ -16,10 +17,11 @@
     <main>
         <div class="piano-container">
             <div class="tecla blanca" data-note="DO" id="do">
-                <div class="key negra" data-note="DO" id="do-sust"></div>
+                <div class="tecla negra" data-note="DO" id="do-sust">
+                </div>
             </div>
             <div class="tecla blanca" data-note="RE" id="re">
-                <div class="key negra" data-note="RE#" id="re-sust"></div>
+                <div class="tecla negra" data-note="RE#" id="re-sust"></div>
             </div>
             <div class="tecla blanca" data-note="MI" id="mi"></div>
             <div class="tecla blanca" data-note="FA" id="fa">
@@ -69,6 +71,7 @@
         </div>
     </aside>
 </div>
+<script src="/js/piano.js"></script>
 <script src="/js/cercador.js"></script>
 </body>
 </html>
