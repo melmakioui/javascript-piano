@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/partitures.css"> <!---->
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <h3>Score Finder</h3>
+                <div class="links"></div>
+            </nav>
+        </header>
+    
+        <aside>
+        </aside>
+    
+        <main>
+           <form action="">
+
+            <div>
+                <label for="titol">Titol</label>
+                <input type="text" name="titol" id="titol">
+            </div>
+
+            <div>
+                <label for="idioma">Idioma Original</label>
+                <select id="idioma" name="idioma">
+                    <option value="es">Espanyol</option>
+                    <option value="ca">Catala</option>
+                    <option value="en">Angles</option>
+                    <option value="fr">Frances</option>
+                  </select>
+            </div>
+
+            <div>
+                <label for="text">Lletra Original</label>
+                <textarea name="text" id="text" cols="30" rows="5"></textarea>
+            </div>
+
+            <div>
+                <label for="traduccio">Traduccio al català</label>
+                <textarea name="text" id="text" cols="30" rows="5"></textarea>
+            </div>
+
+            <input type="submit" value="Desar Partitura">
+           </form>
+        </main>
+    </div>
+    <script src="validacio.js"></script>
+</body>
+</html>
