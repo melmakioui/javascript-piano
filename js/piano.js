@@ -6,6 +6,7 @@ function Tecla(so, sostingut) {
 function Piano() {
     this.tecles = [];
     this.notes = ["do", "do-sust", "re", "re-sust", "mi", "fa", "fa-sust", "sol", "sol-sust", "la", "la-sust", "si", "do7"];
+    var autoReproductor;
 
     this.init = function () {
         for (var nota of this.notes) {
@@ -38,19 +39,20 @@ function Piano() {
         audio.play();
     }
 
-    this.autoPlay = function (partitura) {
-
+    this.autoPlay = function (partitura,botoAutoPlay) {
         var tecles = this.preparaPartitura(partitura);
-
         var idx = 0;
-        var autoReprodueix = setInterval(function () {
-
-            tecles[idx].click();
-
-            if (idx === tecles.length - 1)
-                clearInterval(autoReprodueix);
+        
+        clearInterval(autoReproductor);
+        autoReproductor  = setInterval(function () {
+            if(idx === tecles.length -1)
+                clearInterval(autoReproductor);
+            tecles[idx].click();    
             idx++;    
-        }, 1000)
+        }, 1000);        
+    }
+
+    this.initCronomete = function(){
 
     }
 
@@ -66,8 +68,6 @@ function Piano() {
             var idx = notes.indexOf(nota);
             teclesPartitura.push(tecles[idx]);
         }
-
-        console.log(teclesPartitura);
         return teclesPartitura;
     }
 }
@@ -76,4 +76,4 @@ var piano = new Piano();
 
 piano.init();
 
-piano.autoPlay(["DO", "RE", "SOL", "DO", "FA"]);
+// piano.autoPlay(["DO", "RE", "SOL", "DO", "FA"]);

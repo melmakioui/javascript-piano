@@ -11,6 +11,7 @@ function Nota(nota,sostingut){
 function Cercador(partitures) {
     this.partitures = partitures;
     this.cerca = [];
+    this.piano = new Piano();
 
     this.addCerca = function (nota) {
         var esSostingut = nota.includes("#");
@@ -18,17 +19,6 @@ function Cercador(partitures) {
         this.cerca.push(novaNota);
     }
 
-    /*
-    Explicacio de l'asgorisme
-    1. Per a cada partitura mir l'array de notes si existeix un subconjunt de l'array que s'esta cercant.
-    2. Variables "i","j" que seran els dos punters que aniran iterant cada element SIMULTANIAMENT.
-    4. Si l'element de l'array de partitura[i] es igual a s'element de cerca[j] incrementam i,j.
-    5. Si no son iguals increment la variable "i" per començar pel següent element de l'array de partitures, "j" torna a 0 per tornar a iterar la cerca de 0.
-    6. Si "j" ha iterat tots els elements de l'array de cerca significa que els elements de cerca han estat compatibles amb x elements de l'array de partitures, 
-    seguidament es pujara la melodia a un array resultats.
-    7. Variables "i","j" tornen a 0 per mirar si existeix un subconjunt de la següent partitura.
-    8. Finalment es retorna l'array de resultats, ja iterat totes les partitures. 
-    */
     this.cercaPartitura = function () {
         var i = 0;
         var j = 0;
@@ -50,14 +40,6 @@ function Cercador(partitures) {
             j = 0;
         }
         return resultats;
-    }
-
-    this.autoPlay = function(evt){
-        var piano = new Piano()
-        var boto = evt.currentTarget;
-        var partitura = boto.notes;
-        console.log(partitura);
-        // piano.autoPlay(notes)
     }
 
     this.mostraResultats = function(){
@@ -82,6 +64,14 @@ function Cercador(partitures) {
             div.appendChild(boto);
         }
     }
+
+    this.autoPlay = function(evt){
+        var boto = evt.currentTarget;
+        var partitura = boto.notes;
+        this.piano.autoPlay(partitura,boto) //TODO se mezclan los intervals
+        
+        // piano.autoPlay(partitura,boto);
+    }.bind(this)
 }
 
 //Array de partitures per la cerca de melodies.
@@ -101,3 +91,16 @@ cercador.addCerca("RE");
 cercador.addCerca("MI");
 //Genera Botons
 cercador.mostraResultats();
+
+
+    /*
+    @@@@Explicacio de l'asgorisme
+    1. Per a cada partitura mir l'array de notes si existeix un subconjunt de l'array que s'esta cercant.
+    2. Variables "i","j" que seran els dos punters que aniran iterant cada element SIMULTANIAMENT.
+    4. Si l'element de l'array de partitura[i] es igual a s'element de cerca[j] incrementam i,j.
+    5. Si no son iguals increment la variable "i" per començar pel següent element de l'array de partitures, "j" torna a 0 per tornar a iterar la cerca de 0.
+    6. Si "j" ha iterat tots els elements de l'array de cerca significa que els elements de cerca han estat compatibles amb x elements de l'array de partitures, 
+    seguidament es pujara la melodia a un array resultats.
+    7. Variables "i","j" tornen a 0 per mirar si existeix un subconjunt de la següent partitura.
+    8. Finalment es retorna l'array de resultats, ja iterat totes les partitures. 
+   */
