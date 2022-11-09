@@ -20,16 +20,16 @@
         </aside>
     
         <main>
-           <form action="">
+           <form action="https://jkorpela.fi/cgi-bin/echo.cgi" method="post">
 
             <div>
                 <label for="titol">Titol</label>
-                <input type="text" name="titol" id="titol">
+                <input class="text" type="text" name="titol">
             </div>
 
             <div>
-                <label for="idioma">Idioma Original</label>
-                <select id="idioma" name="idioma">
+                <label>Idioma Original</label>
+                <select name="idioma">
                     <option value="es">Espanyol</option>
                     <option value="ca">Catala</option>
                     <option value="en">Angles</option>
@@ -38,19 +38,19 @@
             </div>
 
             <div>
-                <label for="text">Lletra Original</label>
-                <textarea name="text" id="text" cols="30" rows="5"></textarea>
+                <label>Lletra Original</label>
+                <textarea class="original" name="text" cols="30" rows="5"></textarea>
             </div>
 
             <div>
-                <label for="traduccio">Traduccio al català</label>
-                <textarea name="text" id="text" cols="30" rows="5"></textarea>
+                <label>Traduccio al català</label>
+                <textarea class="traduccio" name="text" cols="30" rows="5"></textarea>
             </div>
 
             <input type="submit" value="Desar Partitura">
            </form>
         </main>
     </div>
-    <script src="validacio.js"></script>
+    <script src="../js/validacio.js"></script>
 </body>
 </html>
