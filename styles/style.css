@@ -104,7 +104,8 @@ aside {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
 }
 
 .reproduir {
