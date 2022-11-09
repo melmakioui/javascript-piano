@@ -42,18 +42,20 @@ function Piano() {
     this.autoPlay = function (partitura,botoAutoPlay) {
         var tecles = this.preparaPartitura(partitura);
         var idx = 0;
-        
+        var data = botoAutoPlay.innerHTML;
+
+        var crono = new Cronometre(botoAutoPlay,data);
+        crono.init()
         clearInterval(autoReproductor);
+
         autoReproductor  = setInterval(function () {
-            if(idx === tecles.length -1)
+            if(idx === tecles.length -1){
                 clearInterval(autoReproductor);
+                crono.stop();
+            }
             tecles[idx].click();    
             idx++;    
         }, 1000);        
-    }
-
-    this.initCronomete = function(){
-
     }
 
     this.preparaPartitura = function (partitura) {
@@ -75,5 +77,3 @@ function Piano() {
 var piano = new Piano();
 
 piano.init();
-
-// piano.autoPlay(["DO", "RE", "SOL", "DO", "FA"]);

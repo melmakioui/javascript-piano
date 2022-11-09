@@ -91,10 +91,12 @@ function Cercador(partitures) {
 var partitures = [];
 var laBalanguera = new Partitura("La Balanguera", ["DO", "RE", "MI", "FA", "FA", "SOL", "SOL", "LA#", "LA#"]);
 var happyBirthday = new Partitura("Happy BirthDay", ["DO", "DO", "RE", "DO", "FA", "MI", "DO", "DO", "RE", "DO", "SOL", "FA"]);
-var happyBirthday = new Partitura("Prova", ["DO", "RE", "MI", "DO", "DO", "RE", "MI", "DO", "MI", "FA", "SOL", "FA"]);
+var prova = new Partitura("Prova", ["DO", "RE", "MI", "DO", "DO", "RE", "MI", "DO", "MI", "FA", "SOL", "FA"]);
 
 partitures.push(laBalanguera);
 partitures.push(happyBirthday);
+partitures.push(prova);
+
 
 var cercador = new Cercador(partitures);
 cercador.cercaMelodies();
