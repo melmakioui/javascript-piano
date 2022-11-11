@@ -11,12 +11,12 @@ function Nota(nota, sostingut) {
 function Cercador(partitures) {
     this.partitures = partitures;
     this.cerca = [];
+    this.partituresTrobades = [];
     this.piano = new Piano();
 
-
-    this.cercaMelodies = function () {
+    this.init = function () {
         var cercador = document.querySelector('#cercador');
-        cercador.addEventListener('input', this.addCerca)
+        cercador.addEventListener('input', this.addCerca);
     }
 
     this.addCerca = function (evt) {
@@ -24,48 +24,51 @@ function Cercador(partitures) {
         var arrayNotes = evt.currentTarget.value.split(" ");
 
         for (var nota of arrayNotes) {
-            if (nota.length < 2)
-                break;
-            nota = nota.toUpperCase();
             var esSostingut = nota.includes("#");
-            var novaNota = new Nota(nota,esSostingut);
+            var novaNota = new Nota(nota.toUpperCase(), esSostingut);
             this.cerca.push(novaNota);
         }
-        this.mostraResultats();
+        this.cercaPartitura();
+        this.pintaResultats();
+
     }.bind(this)
 
     this.cercaPartitura = function () {
-        var i = 0;
-        var j = 0;
-        var resultats = [];
+        var subconjunt;
+        this.partituresTrobades = [];
 
-        for (var melodia of this.partitures) {
-            while (i < melodia.notes.length && j < this.cerca.length) {
-                if (melodia.notes[i] === this.cerca[j].nota) {
-                    i++;
-                    j++;
-                    if (j === this.cerca.length)
-                        resultats.push(melodia);
-                } else {
-                    i = i - j + 1;
-                    j = 0;
+        for (var partitura of this.partitures) {
+            for (let i = 0; i < partitura.notes.length + 1; i++) {
+                for (let j = 1 + i; j < this.cerca.length + 1 + i; j++) {
+                    subconjunt = partitura.notes.slice(i, j);
+                }
+                              
+                if (this.sonIguals(this.cerca, subconjunt)) {
+                    this.partituresTrobades.push(partitura);
+                    break;
                 }
             }
-            i = 0;
-            j = 0;
         }
-        return resultats;
     }
 
-    this.mostraResultats = function () {
-        var aside = document.querySelector('.resultats');
-        aside.innerHTML = "";
-        var resultats = this.cercaPartitura();
+    this.sonIguals = function (cerca, partitura) {
+        if (cerca.length !== partitura.length) return false;
+
+        for (var i = 0; i < cerca.length; i++)
+            if (cerca[i].nota !== partitura[i]) return false;
+
+        return true;
+    }
+
+    this.pintaResultats = function () {
+        var divResultats = document.querySelector('.resultats');
+        divResultats.innerHTML = "";
+        var resultats = this.partituresTrobades;
 
         for (var resultat of resultats) {
             var div = document.createElement('div');
             div.setAttribute('class', 'reproduir');
-            aside.appendChild(div);
+            divResultats.appendChild(div);
 
             var p = document.createElement('p');
             p.innerHTML = `${resultat.titol}`;
@@ -87,7 +90,7 @@ function Cercador(partitures) {
     }.bind(this)
 }
 
-//Array de partitures per la cerca de melodies.
+// //Array de partitures per la cerca de melodies.
 var partitures = [];
 var laBalanguera = new Partitura("La Balanguera", ["DO", "RE", "MI", "FA", "FA", "SOL", "SOL", "LA#", "LA#"]);
 var happyBirthday = new Partitura("Happy BirthDay", ["DO", "DO", "RE", "DO", "FA", "MI", "DO", "DO", "RE", "DO", "SOL", "FA"]);
@@ -97,9 +100,8 @@ partitures.push(laBalanguera);
 partitures.push(happyBirthday);
 partitures.push(prova);
 
-
 var cercador = new Cercador(partitures);
-cercador.cercaMelodies();
+cercador.init();
 
 
 /*
@@ -108,10 +110,10 @@ cercador.cercaMelodies();
     2. Variables "i","j" que seran els dos punters que aniran iterant cada element SIMULTANIAMENT.
     4. Si l'element de l'array de partitura[i] es igual a s'element de cerca[j] incrementam i,j.
     5. Si no son iguals increment la variable "i" per començar pel següent element de l'array de partitures, "j" torna a 0 per tornar a iterar la cerca de 0.
-    6. Si "j" ha iterat tots els elements de l'array de cerca significa que els elements de cerca han estat compatibles amb x elements de l'array de partitures, 
+    6. Si "j" ha iterat tots els elements de l'array de cerca significa que els elements de cerca han estat compatibles amb x elements de l'array de partitures,
     seguidament es pujara la melodia a un array resultats.
     7. Variables "i","j" tornen a 0 per mirar si existeix un subconjunt de la següent partitura.
-    8. Finalment es retorna l'array de resultats, ja iterat totes les partitures. 
+    8. Finalment es retorna l'array de resultats, ja iterat totes les partitures.
    */
 
 
@@ -122,3 +124,40 @@ cercador.cercaMelodies();
     3. Dins el for si l'string es menor que 2 (DO..RE) no el fic dins l'array de cerca
     4. En cas de que sigui menor que 2 el fic dins l'array de cerca i despres en mostra els resultats
 */
+
+// function Partitura(titol, notes) {
+//     this.titol = titol;
+//     this.notes = notes;
+// }
+
+// const cerca = ["DO", "DO","RE","DO"];
+// var newArr;
+// var arrrs = []
+// for (var partitura of partitures) {
+
+//     for (let i = 0; i < partitura.notes.length + 1; i++) {
+//         for (let j = 1 + i; j < cerca.length + 1 + i; j++) {
+//             newArr = partitura.notes.slice(i, j);
+//         }
+//         if (arraysMatch(cerca, newArr)) {
+//             arrrs.push(partitura);
+//             break
+//         }
+//     }
+// }
+
+// console.log(arrrs);
+
+
+// function arraysMatch(arr1, arr2) {
+
+//     // Check if the arrays are the same length
+//     if (arr1.length !== arr2.length) return false;
+
+//     // Check if all items exist and are in the same order
+//     for (var i = 0; i < arr1.length; i++)
+//         if (arr1[i] !== arr2[i]) return false;
+
+//     // Otherwise, return true
+//     return true;
+// };
