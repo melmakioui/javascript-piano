@@ -1,37 +1,46 @@
-function Cronometre(element, inner) {
+function Cronometre(element, innerElement) {
+    var interval;
     this.element = element;
+    this.inner = innerElement;
     this.milisegons = 0;
     this.segons = 0;
     this.minuts = 0;
     this.hores = 0;
-    this.inner = inner;
-    var interval;
 
     this.init = function () {
+      this.stop();
       this.pinta();
+      clearInterval(interval);
       interval = setInterval(this.iniciaCrono, 10);
     };
 
     this.iniciaCrono = function () {
       this.milisegons += 10;
+      var maxMilisegons = 1000;
+      var maxMinSegons = 60
 
-      if (this.milisegons === 1000) {
-        this.milisegons = 0;
-        this.segons++;
-      }
-
-      if (this.segons === 60) {
-        this.segons = 0;
-        this.minuts++;
-      }
-
-      if (this.minuts === 60) {
-        this.minuts = 0;
-        this.hores++;
-      }
+      if (this.milisegons === maxMilisegons) this.sumaSegons();
+      if (this.segons === maxMinSegons) this.sumaMinuts();
+      if (this.minuts === maxMinSegons) this.sumaHores();
 
       this.actualitza();
     }.bind(this);
+
+
+    this.sumaSegons = function(){
+      this.milisegons = 0;
+      this.segons++;
+    }
+
+    this.sumaMinuts = function(){
+      this.segons = 0;
+      this.minuts++;
+    }
+
+    this.sumaHores = function(){
+      this.minuts = 0;
+      this.hores++;
+    }
 
     this.stop = function () {
       this.element.innerHTML = this.inner;

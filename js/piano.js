@@ -18,15 +18,15 @@ function Piano() {
     }
 
     this.injectaAudio = function () {
-        var tecles = document.querySelectorAll('.tecla');
+        var teclesDOM = document.querySelectorAll('.tecla');
 
         var idx = 0;
         for (var tecla of this.tecles) {
             var audio = document.createElement('audio');
             audio.setAttribute('src', `/assets/audio/${tecla.so}`);
-            tecles[idx].addEventListener('click', this.play);
-            tecles[idx].audio = audio; // afageix una propietat audio per poder reproduirla a la funcio activa tecla
-            tecles[idx].appendChild(audio);
+            teclesDOM[idx].addEventListener('click', this.play);
+            teclesDOM[idx].audio = audio; // afageix una propietat audio per poder reproduirla a la funcio activa tecla
+            teclesDOM[idx].appendChild(audio);
             idx++;
         }
     }
@@ -43,7 +43,7 @@ function Piano() {
         var tecles = this.preparaPartitura(partitura);
         var idx = 0;
         var data = botoAutoPlay.innerHTML;
-
+        
         var crono = new Cronometre(botoAutoPlay,data);
         crono.init()
         clearInterval(autoReproductor);
