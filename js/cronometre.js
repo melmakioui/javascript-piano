@@ -8,13 +8,13 @@ function Cronometre(element, innerElement) {
     this.hores = 0;
 
     this.init = function () {
-      this.stop();
       this.pinta();
-      clearInterval(interval);
-      interval = setInterval(this.iniciaCrono, 10);
+       clearInterval(interval);
+       interval = setInterval(this.start, 10);
+       return interval;
     };
 
-    this.iniciaCrono = function () {
+    this.start = function () {
       this.milisegons += 10;
       var maxMilisegons = 1000;
       var maxMinSegons = 60
@@ -43,15 +43,15 @@ function Cronometre(element, innerElement) {
     }
 
     this.stop = function () {
-      this.element.innerHTML = this.inner;
+      this.element.innerHTML = this.element.repro;
       clearInterval(interval);
     };
 
     this.pinta = function () {
-      this.element.innerHTML = "00 : 00 : 00 : 000";
+      this.element.innerHTML = "00 : 00 : 00.000";
     };
 
-    this.actualitza = function () {
+    this.actualitza = function () { //Per que no apareguin mes zeros de lo normal. 
       var hores = this.hores < 10 ? "0" + this.hores : this.hores;
       var minuts = this.minuts < 10 ? "0" + this.minuts : this.minuts;
       var segons = this.segons < 10 ? "0" + this.segons : this.segons;
@@ -61,6 +61,6 @@ function Cronometre(element, innerElement) {
           : this.milisegons < 100
           ? "0" + this.milisegons
           : this.milisegons;
-      this.element.innerHTML = `${hores} : ${minuts} : ${segons} : ${milisegons}`;
+      this.element.innerHTML = `${hores} : ${minuts} : ${segons}.${milisegons}`;
     };
   }

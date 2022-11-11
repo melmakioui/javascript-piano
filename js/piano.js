@@ -7,6 +7,7 @@ function Piano() {
     this.tecles = [];
     this.notes = ["do", "do-sust", "re", "re-sust", "mi", "fa", "fa-sust", "sol", "sol-sust", "la", "la-sust", "si", "do7"];
     var autoReproductor;
+    var initCronometre;
 
     this.init = function () {
         for (var nota of this.notes) {
@@ -25,7 +26,7 @@ function Piano() {
             var audio = document.createElement('audio');
             audio.setAttribute('src', `/assets/audio/${tecla.so}`);
             teclesDOM[idx].addEventListener('click', this.play);
-            teclesDOM[idx].audio = audio; // afageix una propietat audio per poder reproduirla a la funcio activa tecla
+            teclesDOM[idx].audio = audio;
             teclesDOM[idx].appendChild(audio);
             idx++;
         }
@@ -39,23 +40,24 @@ function Piano() {
         audio.play();
     }
 
-    this.autoPlay = function (partitura,botoAutoPlay) {
+    this.autoPlay = function (partitura, botoAutoPlay) {
         var tecles = this.preparaPartitura(partitura);
         var idx = 0;
         var data = botoAutoPlay.innerHTML;
-        
-        var crono = new Cronometre(botoAutoPlay,data);
-        crono.init()
-        clearInterval(autoReproductor);
 
-        autoReproductor  = setInterval(function () {
-            if(idx === tecles.length -1){
+        clearInterval(initCronometre);
+        var crono = new Cronometre(botoAutoPlay, data);
+        initCronometre = crono.init();
+
+        clearInterval(autoReproductor);
+        autoReproductor = setInterval(function () {
+            if (idx === tecles.length - 1) {
                 clearInterval(autoReproductor);
                 crono.stop();
             }
-            tecles[idx].click();    
-            idx++;    
-        }, 1000);        
+            tecles[idx].click();
+            idx++;
+        }, 1000);
     }
 
     this.preparaPartitura = function (partitura) {
@@ -75,5 +77,4 @@ function Piano() {
 }
 
 var piano = new Piano();
-
 piano.init();
