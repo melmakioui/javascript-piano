@@ -43,13 +43,14 @@ function Piano() {
     this.autoPlay = function (partitura, botoAutoPlay) {
         var tecles = this.preparaPartitura(partitura);
         var idx = 0;
-        var data = botoAutoPlay.innerHTML;
+        var innerBotoAutoPlay = botoAutoPlay.innerHTML;
 
         clearInterval(initCronometre);
-        var crono = new Cronometre(botoAutoPlay, data);
-        initCronometre = crono.init();
-
         clearInterval(autoReproductor);
+
+        var crono = new Cronometre(botoAutoPlay, innerBotoAutoPlay);
+        initCronometre = crono.init();
+        
         autoReproductor = setInterval(function () {
             if (idx === tecles.length - 1) {
                 clearInterval(autoReproductor);

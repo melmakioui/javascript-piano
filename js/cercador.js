@@ -76,7 +76,7 @@ function Cercador(partitures) {
             var boto = document.createElement('button');
             boto.setAttribute('class', 'play-btn')
             boto.innerHTML = `REPRODUIR CANÇO`;
-            boto.repro = boto.innerHTML; //Despres del cronometre torna el boto com era.
+            boto.repro = boto.innerHTML; //Despres del cronometre, torna el boto com era.
             boto.addEventListener('click', this.autoPlay);
             boto.notes = resultat.notes;
             div.appendChild(boto);
