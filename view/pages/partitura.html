@@ -17,8 +17,8 @@
             <nav>
                 <h3>Score Finder</h3>
                 <div class="links">
-                    <a href="#">Partitures</a>
-                    <a href="#">Login</a> <!--Utils-->
+                    <a href="partitures.html">Partitures</a>
+                    <a href="#">Login</a>
                 </div>
             </nav>
         </header>
@@ -27,54 +27,76 @@
         </aside>
 
         <main>
-            <form action="" method="post">
+
+            <form action="partitures.html" method="post">
 
                 <h1>Afegeix una Partitura</h1>
 
                 <div id="line-form">
                     <label for="titol">Titol</label>
-                    <input class="text" type="text" name="titol">
-
+                    <input class="text" id="titol" type="text" name="titol">
 
                     <div>
                         <label>Idioma Original</label>
-                        <select name="idioma">
-                            <option value="es">Espanyol</option>
-                            <option value="ca">Catala</option>
-                            <option value="en">Angles</option>
-                            <option value="fr">Frances</option>
-                        </select>
+                        <select name="idioma" id="idiomes"></select>
                     </div>
                 </div>
 
                 <div>
                     <label>Lletra Original</label>
-                    <textarea class="original" name="text" cols="30" rows="5"></textarea>
+                    <textarea id="lletraoriginal" class="original" name="text" cols="30" rows="5"></textarea>
                 </div>
 
                 <div>
                     <label>Traduccio al català</label>
-                    <textarea class="traduccio" name="text" cols="30" rows="5"></textarea>
+                    <textarea id="lletratraduccio" class="traduccio" name="text" cols="30" rows="5"></textarea>
                 </div>
 
-                <input type="submit" value="Desar Partitura">
+                <input type="submit" id="submit" value="Desar Partitura">
             </form>
         </main>
     </div>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script type="module">
-        initTinyMCE();
 
-        function initTinyMCE() { //utils
-            tinymce.init({
-                selector: "textarea",
-                plugins: [
-                    "insertdatetime"
-                ],
-                width: 700,
-                height: 400,
+        "use strict"
+
+        import { PartituraService } from "../../service/PartituraService.js";
+        import { GoogleService } from "../../service/GoogleService.js";
+        import { initTinyMCE, obrirLogin, getUrlParameter } from "../../utils/Utils.js";
+
+        (async () => {
+            initTinyMCE();
+            const partituraService = PartituraService.getInstance();
+            const googleService = GoogleService.getInstance();
+            const idiomes = await googleService.getIdiomes();
+
+            const partituraId = getUrlParameter('edit');
+            let partitura = null
+            if (partituraId) partitura = await partituraService.getPartituraById(partituraId);
+
+            pinta(idiomes, partitura);
+        })();
+
+
+        function pinta(idiomes, partitura) {
+            const select = document.querySelector("#idiomes");
+
+            idiomes.forEach(idioma => {
+                const option = document.createElement('option');
+                option.value = idioma.id;
+                option.innerText = idioma.nom
+                select.appendChild(option);
             });
+
+            if (partitura) {
+                document.querySelector('#titol').value = partitura.titol;
+                document.querySelector('#idiomes').value = partitura.idiomaOriginal;
+                document.querySelector('#lletraoriginal').value = partitura.lletraOriginal;
+                document.querySelector('#lletratraduccio').value = partitura.lletraTraduccio;
+            }
         }
+
     </script>
 </body>
 

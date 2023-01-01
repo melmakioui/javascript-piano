@@ -12,7 +12,7 @@ export class Partitura {
 
     static fromJSON(partitura){
         return {
-            id: partitura.id,
+            id: partitura.idpartitura,
             titol: partitura.titol,
             idiomaOriginal: partitura.idiomaoriginal,
             idiomaDesti: partitura.idiomatraduccio,

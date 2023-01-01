@@ -1,32 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Partitures</title>
-    <link rel="stylesheet" href="../styles/partitures.css"/>
+    <link rel="stylesheet" href="../styles/partitures.css" />
     <link rel="icon" type="image/x-icon" href="#">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
+
 <body>
-<div class="container">
-    <header>
-        <nav>
-            <h3>Score Finder</h3>
-            <div class="links">
-                <a href="#">Partitures</a>
-                <a href="#">Login</a> <!--Utils-->
-            </div>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <nav>
+                <h3>Score Finder</h3>
+                <div class="links">
+                    <a href="#">Partitures</a>
+                    <a href="#">Login</a> <!--Utils-->
+                </div>
+            </nav>
+        </header>
 
-    <aside>
-        <button class="add-part">NOVA PARTITURA</button>
-    </aside>
+        <aside>
+            <a href="partitura.html" class="add-part">NOVA PARTITURA</a>
+        </aside>
 
-    <main>
-        <div class="content"></div>
-    </main>
-</div>
-<script src="/js/partitures.js"></script>
+        <main>
+            <div class="content"></div>
+        </main>
+    </div>
+    <script type="module">
+
+        "use strict"
+
+        import { PartituraService } from "../../service/PartituraService.js";
+
+        (async () => {
+
+            const partituresService = PartituraService.getInstance();
+
+            const partitures = await partituresService.getPartitures();
+            console.log(partitures);
+            pinta(partitures);
+        })();
+
+
+        function pinta(partitures) {
+
+            const body = document.querySelector('body');
+            const div = document.querySelector(".content");
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+
+            thead.innerHTML =
+                `
+                    <tr>
+                        <th>TITOL</th>
+                        <th>IDIOMA ORIGINAL</th>
+                        <th>ACCIONS</th>
+                    </tr>
+                `
+            table.appendChild(thead);
+            table.appendChild(tbody);
+
+
+            partitures.forEach((partitura, index) => {
+
+                const tr = document.createElement('tr');
+                const titol = document.createElement('td');
+                const idioma = document.createElement('td');
+                const accions = document.createElement('td');
+
+                titol.innerHTML = partitura.titol;
+                idioma.innerHTML = partitura.idiomaOriginal.toUpperCase(),
+                accions.innerHTML = `<a id="edit" href="partitura.html?edit=${partitura.id}">
+                                        <i class="fa fa-pencil">Editar</i>
+                                    </a>
+                                    <a id="del" href="partitures.html?del=${partitura.id}">
+                                        <i class="fa fa-trash">Esborrar</i>
+                                    </a>`;
+
+                tr.appendChild(titol);
+                tr.appendChild(idioma);
+                tr.appendChild(accions);
+                tr.setAttribute('id', `${++index}`);
+                tbody.appendChild(tr);
+            });
+
+            div.appendChild(table);
+        }
+
+
+    </script>
 </body>
+
 </html>
