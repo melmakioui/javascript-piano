@@ -64,9 +64,19 @@
         </div>
     </aside>
 </div>
-<!-- No es recomenat fer aixo, utilitzar me endavant type="module"-->
-<script src="/js/cronometre.js"></script>
-<script src="/js/piano.js"></script>
-<script src="/js/cercador.js"></script>
+<script type="module">
+
+"use strict"
+import { Piano } from "../piano/Piano.js";
+
+(()=>{
+    const piano = new Piano();
+
+
+})();
+
+
+</script>
+
 </body>
 </html>
