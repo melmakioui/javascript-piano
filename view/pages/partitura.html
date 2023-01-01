@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/partitura.css"> <!---->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+    <title>Partitura</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <h3>Score Finder</h3>
+                <div class="links">
+                    <a href="#">Partitures</a>
+                    <a href="#">Login</a> <!--Utils-->
+                </div>
+            </nav>
+        </header>
+
+        <aside>
+        </aside>
+
+        <main>
+            <form action="" method="post">
+
+                <h1>Afegeix una Partitura</h1>
+
+                <div id="line-form">
+                    <label for="titol">Titol</label>
+                    <input class="text" type="text" name="titol">
+
+
+                    <div>
+                        <label>Idioma Original</label>
+                        <select name="idioma">
+                            <option value="es">Espanyol</option>
+                            <option value="ca">Catala</option>
+                            <option value="en">Angles</option>
+                            <option value="fr">Frances</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Lletra Original</label>
+                    <textarea class="original" name="text" cols="30" rows="5"></textarea>
+                </div>
+
+                <div>
+                    <label>Traduccio al català</label>
+                    <textarea class="traduccio" name="text" cols="30" rows="5"></textarea>
+                </div>
+
+                <input type="submit" value="Desar Partitura">
+            </form>
+        </main>
+    </div>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="module">
+        initTinyMCE();
+
+        function initTinyMCE() { //utils
+            tinymce.init({
+                selector: "textarea",
+                plugins: [
+                    "insertdatetime"
+                ],
+                width: 700,
+                height: 400,
+            });
+        }
+    </script>
+</body>
+
+</html>

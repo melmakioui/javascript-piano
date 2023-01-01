@@ -1,10 +1,22 @@
 * {
     box-sizing: border-box;
     font-family: Arial, sans-serif, "Courier New";
+    margin: 0;
+
 }
 
+*:focus{
+    outline: none;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+ }
+
 body {
-    margin: 0;
+    background-image: url('../../assets/backgrounds/circles_background_dense.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .container {
@@ -12,20 +24,58 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 80px 400px 1fr;
     grid-template-areas:
-  "titol titol titol titol"
+  "header header header header"
   "main main main main"
   "aside aside aside aside";
-    gap: 20px;
+    gap: 60px;
 }
 
-div.title {
-    grid-area: titol;
+/*Header*/
+header {
+    grid-area: header;
+    background-color: rgb(32,33,33);
     display: flex;
     justify-content: center;
+    flex-flow: column nowrap;
+    transition: 0.3s;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+}
 
-/*Main items*/
+nav > h3 {
+    font-family: 'Lobster', 'serif';
+    font-size: xx-large;
+    margin: 0;
+    color:rgb(232,233,235) ;
+}
+
+.links {
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row nowrap;
+    align-items: baseline;
+}
+
+.links > a {
+    text-decoration: none;
+    color:rgb(232,233,235) ;
+    transition: 0.3s;
+}
+
+.links > a:hover {
+    color:rgb(181, 180, 180) ;
+}
+
+/*Main items & piano*/
 main {
     grid-area: main;
     display: flex;
@@ -37,11 +87,12 @@ div.piano-container {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    gap: 1px;
-    width: 1000px;
+    gap: 0.5px;
+    min-width: 1000px;
+    max-width: 1000px;
     height: 350px;
     border-radius: 10px;
-    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.837) 11.2%, rgba(0, 0, 0, 0.437) 78.9%);
 }
 
 .blanca {
@@ -72,6 +123,7 @@ div.piano-container {
     box-shadow: -1px -1px 2px rgba(23, 23, 23, 0.55) inset, 0 -5px 2px 3px rgba(17, 17, 17, 0.6) inset, 0 2px 4px rgba(0, 0, 0, 0.71);
 }
 
+
 /*Aside items*/
 aside {
     grid-area: aside;
@@ -83,11 +135,21 @@ aside {
 
 
 .cerca-container {
-    width: 100%;
+    width: 1000px;
+    border-radius: 10px;
+    background-color: rgba(232, 233, 235, 0.66);
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
+    padding: 50px;
+    gap: 10px;
+}
+
+.cerca-container > h2 {
+    font-family: 'Lobster', 'serif';
+
 }
 
 .cercador {
@@ -98,14 +160,23 @@ aside {
     margin: 0 0 20px 0;
 }
 
+#cercador{
+    border: none;
+    padding: 10px;
+}
+
+
 .resultats {
     width: 100%;
-    height: 400px;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
+}
+
+.resultats > h2{
+    font-family: 'Lobster', 'serif';
 }
 
 .reproduir {

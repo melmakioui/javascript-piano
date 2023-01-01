@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif, "Courier New";
+}
+
+body {
+  background-image: url("../../assets/backgrounds/circles_background_dense.svg");
+  background-size: auto;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+*:focus {
+  outline: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 80px 50px 1fr;
+  grid-template-areas:
+    "header header header header"
+    "main main main main";
+  gap: 60px;
+}
+
+/*Header*/
+header {
+  grid-area: header;
+  background-color: rgb(32, 33, 33);
+  display: flex;
+  justify-content: center;
+  flex-flow: column nowrap;
+  transition: 0.3s;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+}
+
+nav > h3 {
+  font-family: "Lobster", "serif";
+  font-size: xx-large;
+  margin: 0;
+  color: rgb(232, 233, 235);
+}
+
+.links {
+  width: 200px;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+.links > a {
+  text-decoration: none;
+  color: rgb(232, 233, 235);
+  transition: 0.3s;
+}
+
+.links > a:hover {
+  color: rgb(181, 180, 180);
+}
+
+main {
+  grid-area: main;
+  justify-self: center;
+}
+
+input {
+  border: none;
+  padding: 10px;
+}
+
+main > form {
+  background-color: rgba(240, 240, 240, 0.937);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 30px;
+  width: 1000px;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+form > h1 {
+  font-family: "Lobster", "sans-serif";
+}
+
+input {
+  height: 30px;
+  padding: 5px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid rgb(181, 180, 180);
+}
+
+input[type="submit"] {
+  cursor: pointer;
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+}
+
+select {
+  font-size: 14px;
+  height: 30px;
+  padding: 5px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid rgb(181, 180, 180);
+}
+
+#line-form {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
