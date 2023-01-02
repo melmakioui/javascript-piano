@@ -132,7 +132,8 @@
             const partituraService = PartituraService.getInstance();
             const result = await partituraService.save(data);
 
-            //redireccionar a partitures con un parametro de success
+            if (result.notifyType === "SUCCESS")
+                window.location.href = "partitures.html";
         }
 
 

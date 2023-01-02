@@ -16,7 +16,7 @@
                 <h3>Score Finder</h3>
                 <div class="links">
                     <a href="#">Partitures</a>
-                    <a href="#">Login</a> <!--Utils-->
+                    <a href="#">Login</a>
                 </div>
             </nav>
         </header>
@@ -34,13 +34,19 @@
         "use strict"
 
         import { PartituraService } from "../../service/PartituraService.js";
+        import { obrirLogin, getUrlParameter } from "../../utils/Utils.js";
 
         (async () => {
 
-            const partituresService = PartituraService.getInstance();
+            const partituraService = PartituraService.getInstance();
+            const partitures = await partituraService.getPartitures();
 
-            const partitures = await partituresService.getPartitures();
-            console.log(partitures);
+            const eliminar = getUrlParameter('del');
+            if (eliminar) {
+                const result = await partituraService.delete(eliminar);
+                if (result.notifyType === "SUCCESS") window.location.href = "partitures.html";
+            }
+
             pinta(partitures);
         })();
 
@@ -68,29 +74,35 @@
             partitures.forEach((partitura, index) => {
 
                 const tr = document.createElement('tr');
+                const id = document.createElement('td');
+                id.setAttribute('id', partitura.id);
+                id.innerHTML = partitura.id;
+
                 const titol = document.createElement('td');
                 const idioma = document.createElement('td');
                 const accions = document.createElement('td');
 
                 titol.innerHTML = partitura.titol;
                 idioma.innerHTML = partitura.idiomaOriginal.toUpperCase(),
-                accions.innerHTML = `<a id="edit" href="partitura.html?edit=${partitura.id}">
+                    accions.innerHTML = `<a id="edit" href="partitura.html?edit=${partitura.id}">
                                         <i class="fa fa-pencil">Editar</i>
                                     </a>
                                     <a id="del" href="partitures.html?del=${partitura.id}">
                                         <i class="fa fa-trash">Esborrar</i>
                                     </a>`;
 
+
+                id.hidden = true
+                tr.appendChild(id);
                 tr.appendChild(titol);
                 tr.appendChild(idioma);
                 tr.appendChild(accions);
-                tr.setAttribute('id', `${++index}`);
+                tr.setAttribute('id', `${partitura.id}`);
                 tbody.appendChild(tr);
             });
 
             div.appendChild(table);
         }
-
 
     </script>
 </body>

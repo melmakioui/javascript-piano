@@ -22,7 +22,7 @@ export class PartituraService {
     }
 
     async delete(id) {
-        const fetchDelete = await fetch(this._DELETE, { method: 'POST', body: id });
+        const fetchDelete = await fetch(this._DELETE, { method: 'POST', body: JSON.stringify({ id: id }) });
         const deleted = await fetchDelete.json();
         return deleted;
     }
@@ -40,7 +40,7 @@ export class PartituraService {
     }
 
     addCerca(data) {
-        
+
     }
 
     cercador() {
