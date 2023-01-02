@@ -50,6 +50,8 @@ export class PartituraService {
             const novaNota = new Nota(++index, nota.toUpperCase(), esSostingut, null);
             this._cerca.push(novaNota);
         });
+
+        console.log(this._cerca);
     }
 
      cercador() {

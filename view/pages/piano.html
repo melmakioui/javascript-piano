@@ -49,11 +49,12 @@
 
 
         <aside>
+            <!--Sense funcionalitat, notes buides-->
             <div class="cerca-container">
                 <h2>Cerca una Melodia</h2>
                 <label for="cercador"></label>
                 <input type="text" name="cercador" class="cercador" id="cercador"
-                    placeholder="Ej: DO RE, Happy Birthday...">
+                    placeholder="Ej: DO RE...">
                 <button class="del-btn">ESBORRAR</button>
 
                 <div class="resultats">
@@ -78,15 +79,15 @@
             const piano = new Piano();
             const partituraService = PartituraService.getInstance();
 
-            pinta();
+            cercador.addEventListener('input', () => {
+                partituraService.addCerca(cercador.value)
+            })
 
         })();
 
 
         function pinta() {
-            cercador.addEventListener('input', () => {
-                partituraService.addCerca(cercador.value)
-            })
+           
         }
 
     </script>

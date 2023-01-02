@@ -18,7 +18,7 @@
                 <h3><a href="piano.html">Score Finder</a></h3>
                 <div class="links">
                     <a href="partitures.html">Partitures</a>
-                    <a href="#">Login</a>
+                    <a id="obrirlogin" href="#">Login</a>
                 </div>
             </nav>
         </header>
@@ -51,9 +51,8 @@
                 </div>
 
                 <div>
-                    <label>Traduccio al català</label>
-                    <textarea id="partituratraduccio" class="traduccio" name="partituratraduccio" cols="30"
-                        rows="5"></textarea>
+                    <label>Traduccio al català auto</label>
+                    <input type="text" id="partituratraduccio" class="traduccio" name="partituratraduccio" disabled>
                 </div>
 
                 <input id="idiomatraduccio" type="text" value="ca" name="idiomatraduccio" hidden>
@@ -120,7 +119,14 @@
             // texteOriginal.addEventListener('input', validaCodiHTML);
             // texteTraduccio.addEventListener('input', validaCodiHTML);
             form.addEventListener("submit", submit);
+
+
+            const autoTraductor = document.querySelector('#partituraoriginal');
+
+            // autoTraductor.addEventListener('input',tradueixPartitura);
         }
+
+
 
         async function submit(event) {
             event.preventDefault();

@@ -47,11 +47,18 @@ nav {
 }
 
 nav > h3 {
-  font-family: "Lobster", "serif";
   font-size: xx-large;
   margin: 0;
   color: rgb(232, 233, 235);
 }
+
+h3 > a {
+  text-decoration: none;
+  color: rgb(232, 233, 235);
+  transition: 0.3s;
+  font-family: "Lobster", "serif";
+}
+
 
 .links {
   width: 200px;
@@ -64,6 +71,7 @@ nav > h3 {
 textarea{
   background-color: red;
 }
+
 
 .links > a {
   text-decoration: none;
@@ -131,6 +139,10 @@ select {
   align-items: center;
   gap: 30px;
   width: 100%;
+}
+
+#partituratraduccio{
+  border: none;
 }
 
 /* .lds-dual-ring {

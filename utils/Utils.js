@@ -1,3 +1,5 @@
+import { GoogleService } from "../../service/GoogleService.js";
+
 export function initTinyMCE() { //utils
     tinymce.init({
         selector: "textarea",
@@ -6,8 +8,26 @@ export function initTinyMCE() { //utils
         ],
         width: 700,
         height: 400,
-    });
 
+        init_instance_callback: function (editor) {
+            editor.on('input', async function(event){
+                const idioma = document.querySelector('select');
+                const partituratraduccio = document.querySelector('#partituratraduccio');
+                const input = event.target.innerText;
+            
+                if(idioma.value === 'ca'){
+                    partituratraduccio.value = input.value;
+                    return;
+                }
+            
+                const googleService = GoogleService.getInstance();
+                console.log(idioma.value,'ca',input.value);
+                const resultat = await googleService.traduir(idioma.value,'ca',input);
+                partituratraduccio.value = resultat;
+            });
+            
+        },
+    });
 }
 
 export function obrirLogin() {
