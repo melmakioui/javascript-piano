@@ -1,4 +1,6 @@
 import { Partitura } from "../model/Partitura.js";
+import { Nota } from "../model/Nota.js";
+
 
 export class PartituraService {
 
@@ -39,12 +41,19 @@ export class PartituraService {
         return novaPartitura;
     }
 
-    addCerca(data) {
+    addCerca(input) {
+        this._cerca = [];
+        const notes = input.split(" ");
 
+        notes.forEach((nota, index) => {
+            const esSostingut = nota.includes("#");
+            const novaNota = new Nota(++index, nota.toUpperCase(), esSostingut, null);
+            this._cerca.push(novaNota);
+        });
     }
 
-    cercador() {
-
+     cercador() {
+        //Notes buides
     }
 
 }

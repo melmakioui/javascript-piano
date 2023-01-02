@@ -16,7 +16,7 @@
                 <h3>Score Finder</h3>
                 <div class="links">
                     <a href="#">Partitures</a>
-                    <a href="#">Login</a>
+                    <a id="obrirlogin" href="#">Login</a>
                 </div>
             </nav>
         </header>
@@ -37,7 +37,7 @@
         import { obrirLogin, getUrlParameter } from "../../utils/Utils.js";
 
         (async () => {
-
+            obrirLogin();
             const partituraService = PartituraService.getInstance();
             const partitures = await partituraService.getPartitures();
 

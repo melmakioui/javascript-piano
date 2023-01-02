@@ -1,83 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Piano!</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="icon" type="image/x-icon" href="#">
-    <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Lobster">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <header>
-        <nav>
-            <h3>Score Finder</h3>
-            <div class="links">
-                <a href="partitures.html">Partitures</a>
-                <a href="#">Login</a> <!--Utils -> Obrir Login-->
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <div class="piano-container">
-            <div class="tecla blanca" data-note="DO" id="do">
-                <div class="tecla negra" data-note="DO" id="do-sust">
+        <header>
+            <nav>
+                <h3>Score Finder</h3>
+                <div class="links">
+                    <a href="partitures.html">Partitures</a>
+                    <a id="obrirlogin" href="#">Login</a>
                 </div>
-            </div>
-            <div class="tecla blanca" data-note="RE" id="re">
-                <div class="tecla negra" data-note="RE#" id="re-sust"></div>
-            </div>
-            <div class="tecla blanca" data-note="MI" id="mi"></div>
-            <div class="tecla blanca" data-note="FA" id="fa">
-                <div class="tecla negra" data-note="FA#" id="fa-sust"></div>
-            </div>
-            <div class="tecla blanca" data-note="SOL" id="sol">
-                <div class="tecla negra" data-note="SOL#" id="sol-sust"></div>
-            </div>
-            <div class="tecla blanca" data-note="LA" id="la">
-                <div class="tecla negra" data-note="LA#" id="la-sust"></div>
-            </div>
-            <div class="tecla blanca" data-note="SI" id="si"></div>
-            <div class="tecla blanca" data-note="DO#" id="do7"></div>
-        </div>
-    </main>
+            </nav>
+        </header>
 
-
-    <aside>
-        <div class="cerca-container">
-            <h2>Cerca una Melodia</h2>
-            <label for="cercador"></label>
-            <input type="text" name="cercador" class="cercador" id="cercador" placeholder="Ej: DO RE, Happy Birthday...">
-            <button class="del-btn">ESBORRAR</button>
-       
-            <div class="resultats">
-                <h2>Resultats:</h2>
-                <div class="reproduir">
-                    <i>Cerca una melodia!</i>
+        <main>
+            <div class="piano-container">
+                <div class="tecla blanca" data-note="DO" id="do">
+                    <div class="tecla negra" data-note="DO" id="do-sust">
+                    </div>
                 </div>
+                <div class="tecla blanca" data-note="RE" id="re">
+                    <div class="tecla negra" data-note="RE#" id="re-sust"></div>
+                </div>
+                <div class="tecla blanca" data-note="MI" id="mi"></div>
+                <div class="tecla blanca" data-note="FA" id="fa">
+                    <div class="tecla negra" data-note="FA#" id="fa-sust"></div>
+                </div>
+                <div class="tecla blanca" data-note="SOL" id="sol">
+                    <div class="tecla negra" data-note="SOL#" id="sol-sust"></div>
+                </div>
+                <div class="tecla blanca" data-note="LA" id="la">
+                    <div class="tecla negra" data-note="LA#" id="la-sust"></div>
+                </div>
+                <div class="tecla blanca" data-note="SI" id="si"></div>
+                <div class="tecla blanca" data-note="DO#" id="do7"></div>
             </div>
-       
-        </div>
-    </aside>
-</div>
-<script type="module">
-
-"use strict"
-import { Piano } from "../piano/Piano.js";
-import { PartituraService } from "../../service/PartituraService.js";
+        </main>
 
 
-(async ()=>{
-    const piano = new Piano();
+        <aside>
+            <div class="cerca-container">
+                <h2>Cerca una Melodia</h2>
+                <label for="cercador"></label>
+                <input type="text" name="cercador" class="cercador" id="cercador"
+                    placeholder="Ej: DO RE, Happy Birthday...">
+                <button class="del-btn">ESBORRAR</button>
 
-})();
+                <div class="resultats">
+                    <h2>Resultats:</h2>
+                    <div class="reproduir">
+                        <i>Cerca una melodia!</i>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+    </div>
+    <script type="module">
+
+        "use strict"
+        import { Piano } from "../piano/Piano.js";
+        import { PartituraService } from "../../service/PartituraService.js";
+        import { obrirLogin } from "../../utils/Utils.js";
+
+        (async () => {
+            obrirLogin();
+            const piano = new Piano();
+            const partituraService = PartituraService.getInstance();
+
+            pinta();
+
+        })();
 
 
-</script>
+        function pinta() {
+            cercador.addEventListener('input', () => {
+                partituraService.addCerca(cercador.value)
+            })
+        }
+
+    </script>
 
 </body>
+
 </html>

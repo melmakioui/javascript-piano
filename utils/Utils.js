@@ -11,6 +11,18 @@ export function initTinyMCE() { //utils
 }
 
 export function obrirLogin() {
+    const loginBtn = document.querySelector('#obrirlogin');
+    loginBtn.addEventListener('click',()=> {
+        const width = 770;
+        const height = 500;
+        const top = (screen.height - 500) / 2;
+        const left = (screen.width - 770) / 2;
+        const login = window.open(
+            "./login.html",
+            "Log In",
+            `width=${width},height=${height},top=${top},left=${left}`
+        );
+    })
 
 }
 

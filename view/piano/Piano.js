@@ -12,13 +12,14 @@ export class Piano {
             this.tecles.push(new Tecla(audio, esSostingut));
         });
         this.injectaAudio();
+        this.activaTecles();
     }
-    
 
-    injectaAudio(){
+
+    injectaAudio() {
         const teclesDOM = document.querySelectorAll('.tecla');
 
-        this.tecles.forEach( (tecla,idx) => {
+        this.tecles.forEach((tecla, idx) => {
             const audio = document.createElement('audio');
             audio.setAttribute('src', `/assets/audio/${tecla.so}`);
             teclesDOM[idx].addEventListener('click', this._play);
@@ -26,7 +27,7 @@ export class Piano {
             teclesDOM[idx].appendChild(audio);
         });
     }
-    
+
     _play(event) {
         event.stopPropagation();
         const tecla = event.currentTarget;
@@ -34,5 +35,18 @@ export class Piano {
         audio.currentTime = 0;
         audio.play();
     }
+
+    activaTecles() {
+        const teclesDOM = document.querySelectorAll('.tecla');
+        const tecles = ['A', 'W', 'S', 'E', 'D', 'F', 'T', 'G', 'Y', 'H', 'U', 'J', 'K'];
+
+        teclesDOM.forEach((teclaDOM, index) => {
+            document.addEventListener('keydown', e => {
+                if (e.code === `Key${tecles[index]}`) teclaDOM.click();
+            })
+        });
+    }
+
+    //TODO: Autoplay fins que les notes siguine visibles
 
 }

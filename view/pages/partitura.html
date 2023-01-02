@@ -15,7 +15,7 @@
     <div class="container">
         <header>
             <nav>
-                <h3>Score Finder</h3>
+                <h3><a href="piano.html">Score Finder</a></h3>
                 <div class="links">
                     <a href="partitures.html">Partitures</a>
                     <a href="#">Login</a>
@@ -76,6 +76,7 @@
 
         (async () => {
             initTinyMCE();
+            obrirLogin();
             const partituraService = PartituraService.getInstance();
             const googleService = GoogleService.getInstance();
             const idiomes = await googleService.getIdiomes();

@@ -55,6 +55,7 @@ nav > h3 {
     font-size: xx-large;
     margin: 0;
     color:rgb(232,233,235) ;
+    display:inline-block; 
 }
 
 .links {
