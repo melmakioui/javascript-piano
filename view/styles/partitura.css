@@ -61,6 +61,10 @@ nav > h3 {
   align-items: baseline;
 }
 
+textarea{
+  background-color: red;
+}
+
 .links > a {
   text-decoration: none;
   color: rgb(232, 233, 235);

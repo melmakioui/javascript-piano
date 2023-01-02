@@ -7,6 +7,7 @@ export function initTinyMCE() { //utils
         width: 700,
         height: 400,
     });
+
 }
 
 export function obrirLogin() {

@@ -28,29 +28,36 @@
 
         <main>
 
-            <form action="partitures.html" method="post">
+            <form action="#" method="post">
 
                 <h1>Afegeix una Partitura</h1>
 
+                <input name="idpartitura" id="idpartitura" hidden></input>
+
                 <div id="line-form">
                     <label for="titol">Titol</label>
-                    <input class="text" id="titol" type="text" name="titol">
+                    <input class="text" id="titol" type="text" name="name">
 
                     <div>
                         <label>Idioma Original</label>
-                        <select name="idioma" id="idiomes"></select>
+                        <select name="idiomaoriginal" id="idiomes"></select>
                     </div>
                 </div>
 
                 <div>
                     <label>Lletra Original</label>
-                    <textarea id="lletraoriginal" class="original" name="text" cols="30" rows="5"></textarea>
+                    <textarea id="partituraoriginal" class="original" name="partituraoriginal" cols="30"
+                        rows="5"></textarea>
                 </div>
 
                 <div>
                     <label>Traduccio al català</label>
-                    <textarea id="lletratraduccio" class="traduccio" name="text" cols="30" rows="5"></textarea>
+                    <textarea id="partituratraduccio" class="traduccio" name="partituratraduccio" cols="30"
+                        rows="5"></textarea>
                 </div>
+
+                <input id="idiomatraduccio" type="text" value="ca" name="idiomatraduccio" hidden>
+
 
                 <input type="submit" id="submit" value="Desar Partitura">
             </form>
@@ -64,6 +71,8 @@
         import { PartituraService } from "../../service/PartituraService.js";
         import { GoogleService } from "../../service/GoogleService.js";
         import { initTinyMCE, obrirLogin, getUrlParameter } from "../../utils/Utils.js";
+        import { validaTitol, validaCodiHTML } from "../../utils/Validation.js"
+
 
         (async () => {
             initTinyMCE();
@@ -90,12 +99,42 @@
             });
 
             if (partitura) {
+                document.querySelector('#idpartitura').value = partitura.id;
                 document.querySelector('#titol').value = partitura.titol;
                 document.querySelector('#idiomes').value = partitura.idiomaOriginal;
-                document.querySelector('#lletraoriginal').value = partitura.lletraOriginal;
-                document.querySelector('#lletratraduccio').value = partitura.lletraTraduccio;
+                document.querySelector('#partituraoriginal').value = partitura.lletraOriginal;
+                document.querySelector('#partituratraduccio').value = partitura.lletraTraduccio;
+                document.querySelector('#idiomatraduccio').value = partitura.idiomaDesti;
+
             }
+
+            const titol = document.querySelector('#titol');
+            const idioma = document.querySelector('select');
+            const texteOriginal = document.querySelector('#lletraoriginal');
+            const texteTraduccio = document.querySelector('#lletratraduccio')
+            const button = document.querySelector('input[type="submit"]');
+            const form = document.querySelector('form');
+
+            // titol.addEventListener('input', validaTitol);
+            // texteOriginal.addEventListener('input', validaCodiHTML);
+            // texteTraduccio.addEventListener('input', validaCodiHTML);
+            form.addEventListener("submit", submit);
         }
+
+        async function submit(event) {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const formData = new FormData(form);
+
+            const data = Object.fromEntries(formData);
+            data.notes = [];
+
+            const partituraService = PartituraService.getInstance();
+            const result = await partituraService.save(data);
+
+            //redireccionar a partitures con un parametro de success
+        }
+
 
     </script>
 </body>
