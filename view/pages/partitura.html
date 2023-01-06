@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/partitura.css"> <!---->
+    <link rel="stylesheet" href="../styles/partitura.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 
     <title>Partitura</title>
@@ -32,6 +32,7 @@
 
                 <h1>Afegeix una Partitura</h1>
 
+                <div id="alert">No es poden deixar camps buits.</div>
                 <input name="idpartitura" id="idpartitura" hidden></input>
 
                 <div id="line-form">
@@ -51,7 +52,7 @@
                 </div>
 
                 <div>
-                    <label>Traduccio al català auto</label>
+                    <label>Traduccio al català</label>
                     <input type="text" id="partituratraduccio" class="traduccio" name="partituratraduccio" disabled>
                 </div>
 
@@ -66,15 +67,15 @@
     <script type="module">
 
         "use strict"
-
         import { PartituraService } from "../../service/PartituraService.js";
         import { GoogleService } from "../../service/GoogleService.js";
         import { initTinyMCE, obrirLogin, getUrlParameter } from "../../utils/Utils.js";
-        import { validaTitol, validaCodiHTML } from "../../utils/Validation.js"
+        import { submit } from "../../utils/Validation.js"
 
 
         (async () => {
             initTinyMCE();
+            tradueix();
             obrirLogin();
             const partituraService = PartituraService.getInstance();
             const googleService = GoogleService.getInstance();
@@ -86,6 +87,24 @@
 
             pinta(idiomes, partitura);
         })();
+
+
+        function tradueix() { 
+            tinymce.activeEditor.on('input', async function () {
+                const idioma = document.querySelector('select');
+                const partituratraduccio = document.querySelector('#partituratraduccio');
+                const inputValue = event.target.innerText;
+
+                if (idioma.value === 'ca') {
+                    partituratraduccio.value = inputValue;
+                    return;
+                }
+                const googleService = GoogleService.getInstance();
+                const resultat = await googleService.traduir(idioma.value, 'ca', inputValue);
+                partituratraduccio.value = resultat;
+            });
+         }
+
 
 
         function pinta(idiomes, partitura) {
@@ -102,45 +121,18 @@
                 document.querySelector('#idpartitura').value = partitura.id;
                 document.querySelector('#titol').value = partitura.titol;
                 document.querySelector('#idiomes').value = partitura.idiomaOriginal;
-                document.querySelector('#partituraoriginal').value = partitura.lletraOriginal;
+                tinymce.activeEditor.setContent(partitura.lletraOriginal);
                 document.querySelector('#partituratraduccio').value = partitura.lletraTraduccio;
                 document.querySelector('#idiomatraduccio').value = partitura.idiomaDesti;
-
             }
 
             const titol = document.querySelector('#titol');
             const idioma = document.querySelector('select');
-            const texteOriginal = document.querySelector('#lletraoriginal');
+            const texteOriginal = document.querySelector('#partituraoriginal');
             const texteTraduccio = document.querySelector('#lletratraduccio')
             const button = document.querySelector('input[type="submit"]');
             const form = document.querySelector('form');
-
-            // titol.addEventListener('input', validaTitol);
-            // texteOriginal.addEventListener('input', validaCodiHTML);
-            // texteTraduccio.addEventListener('input', validaCodiHTML);
             form.addEventListener("submit", submit);
-
-
-            const autoTraductor = document.querySelector('#partituraoriginal');
-
-            // autoTraductor.addEventListener('input',tradueixPartitura);
-        }
-
-
-
-        async function submit(event) {
-            event.preventDefault();
-            const form = event.currentTarget;
-            const formData = new FormData(form);
-
-            const data = Object.fromEntries(formData);
-            data.notes = [];
-
-            const partituraService = PartituraService.getInstance();
-            const result = await partituraService.save(data);
-
-            if (result.notifyType === "SUCCESS")
-                window.location.href = "partitures.html";
         }
 
 

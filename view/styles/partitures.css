@@ -113,6 +113,24 @@ aside {
     border: 1px solid rgb(158, 158, 158);
 }
 
+
+.btn-crud {
+    padding: 10px;
+    width: 50px;
+    margin: 2px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-crud:hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(158, 158, 158);
+}
+
 /*Main items*/
 main {
     grid-area: main;

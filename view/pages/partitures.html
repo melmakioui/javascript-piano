@@ -32,7 +32,6 @@
     <script type="module">
 
         "use strict"
-
         import { PartituraService } from "../../service/PartituraService.js";
         import { obrirLogin, getUrlParameter } from "../../utils/Utils.js";
 
@@ -44,7 +43,10 @@
             const eliminar = getUrlParameter('del');
             if (eliminar) {
                 const result = await partituraService.delete(eliminar);
-                if (result.notifyType === "SUCCESS") window.location.href = "partitures.html";
+                if (result.notifyType === "SUCCESS"){
+                    alert('Partitura esborrada');
+                    window.location.href = "partitures.html";
+                }
             }
 
             pinta(partitures);
@@ -82,17 +84,28 @@
                 const idioma = document.createElement('td');
                 const accions = document.createElement('td');
 
+                const delBtn = document.createElement('button');
+                delBtn.setAttribute('class','btn-crud')
+                delBtn.innerHTML =  '<i class="fa fa-trash"></i>'
+                delBtn.addEventListener('click',()=> {
+                    const confirmacio = window.confirm(`Estas segur que vols eliminar "${partitura.titol}"?`)
+                    if(confirmacio) window.location.href = `partitures.html?del=${partitura.id}` 
+                })
+                
+                const editBtn = document.createElement('button');
+                editBtn.setAttribute('class','btn-crud')
+                editBtn.innerHTML =  '<i class="fa fa-pencil"></i>'
+                editBtn.addEventListener('click',()=> {
+                    window.location.href = `partitura.html?edit=${partitura.id}`
+                })
+                
                 titol.innerHTML = partitura.titol;
                 idioma.innerHTML = partitura.idiomaOriginal.toUpperCase(),
-                    accions.innerHTML = `<a id="edit" href="partitura.html?edit=${partitura.id}">
-                                        <i class="fa fa-pencil">Editar</i>
-                                    </a>
-                                    <a id="del" href="partitures.html?del=${partitura.id}">
-                                        <i class="fa fa-trash">Esborrar</i>
-                                    </a>`;
-
+                                
 
                 id.hidden = true
+                accions.appendChild(editBtn);
+                accions.appendChild(delBtn);
                 tr.appendChild(id);
                 tr.appendChild(titol);
                 tr.appendChild(idioma);

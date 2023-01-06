@@ -4,7 +4,6 @@ export class Idioma {
         this.nom = nom;
     }
 
-
     static fromJSON(idioma) {
         return {
             id: idioma.code,

@@ -145,6 +145,15 @@ select {
   border: none;
 }
 
+#alert {
+  background-color: rgba(243, 0, 0, 0.212);
+  color: rgb(232, 233, 235);
+  border: 1px solid  rgba(214, 0, 0, 0.938);
+  border-radius: 10px;
+  padding: 20px;
+  display: none;
+}
+
 /* .lds-dual-ring {
   display: inline-block;
   width: 80px;

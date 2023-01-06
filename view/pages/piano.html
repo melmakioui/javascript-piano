@@ -15,7 +15,7 @@
 
         <header>
             <nav>
-                <h3>Score Finder</h3>
+                <h3><a href="piano.html">Score Finder</a></h3>
                 <div class="links">
                     <a href="partitures.html">Partitures</a>
                     <a id="obrirlogin" href="#">Login</a>
@@ -49,12 +49,11 @@
 
 
         <aside>
-            <!--Sense funcionalitat, notes buides-->
             <div class="cerca-container">
                 <h2>Cerca una Melodia</h2>
                 <label for="cercador"></label>
                 <input type="text" name="cercador" class="cercador" id="cercador"
-                    placeholder="Ej: DO RE...">
+                    placeholder="Ej: DO RE..., Happy Birthday...">
                 <button class="del-btn">ESBORRAR</button>
 
                 <div class="resultats">
@@ -78,17 +77,59 @@
             obrirLogin();
             const piano = new Piano();
             const partituraService = PartituraService.getInstance();
+            const partitures = await partituraService.getPartitures(); //Per inicialitzar la variable partitures
 
+            const cercador = document.querySelector('#cercador');
             cercador.addEventListener('input', () => {
-                partituraService.addCerca(cercador.value)
+                const resultats = partituraService.addCerca(cercador.value);
+                pinta(resultats, piano);
             })
 
         })();
 
 
-        function pinta() {
-           
+        function pinta(resultats, piano) {
+            const div = document.querySelector('.reproduir');
+            div.innerHTML = "";
+
+            resultats.forEach(partitura => {
+                const divPartitura = document.createElement('div');
+                divPartitura.setAttribute('class', 'partitura');
+                const button = document.createElement('button');
+                const span = document.createElement('span');
+
+                span.innerHTML = partitura.titol;
+                button.innerHTML = 'Play'
+                button.display = 'Play' //Guardam es 'Play'
+                button.setAttribute('class', 'play-btn');
+
+                //Autoplay
+                if (partitura.notes.length !== 0) {
+                    button.addEventListener('click', (e) => {
+                        e.currentTarget.notes = partitura.notes;
+                        piano.autoPlay(e.currentTarget, partitura.notes)
+                    });
+                }
+
+                if (partitura.notes.length === 0)
+                    button.innerHTML = 'Play <small>N/A</small>'
+
+                divPartitura.appendChild(span)
+                divPartitura.appendChild(button)
+
+                div.appendChild(divPartitura);
+            });
+
+
+            const btnDel = document.querySelector('.del-btn')
+            btnDel.addEventListener('click', () => {
+                div.innerHTML = "<i>Cerca una melodia!</i>";
+            })
+            console.log(resultats);
         }
+
+
+
 
     </script>
 
