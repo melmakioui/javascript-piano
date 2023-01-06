@@ -1,15 +1,22 @@
 import { Partitura } from "../model/Partitura.js";
 import { Nota } from "../model/Nota.js";
 
+/*
+* Com que no tenim notes a les partitures que arriben del servidor, 
+* importare unes partitures meves.
+*/
+
+import { partitures as partituresStatic } from "../utils/PartituresStatic.js"
+
 
 export class PartituraService {
 
     static _instance;
     _cerca = [];
-    _SAVE = "https://theteacher.codiblau.com/piano/nologin/score/save";
-    _LIST = "https://theteacher.codiblau.com/piano/nologin/score/list";
-    _GET = "https://theteacher.codiblau.com/piano/nologin/score/get";
-    _DELETE = "https://theteacher.codiblau.com/piano/nologin/score/delete"
+    _partitures = [];
+    _URL = "https://theteacher.codiblau.com";
+
+    _contructor() { }
 
     static getInstance() {
         return !this._instance ?
@@ -18,44 +25,61 @@ export class PartituraService {
     }
 
     async getPartitures() {
-        const fetchPartitures = await fetch(this._LIST, { method: 'POST' });
+        const fetchPartitures = await fetch(this._URL + "/piano/nologin/score/list", 
+        { method: 'POST' });
+        
         const partitures = await fetchPartitures.json();
-        return partitures.map(partitura => Partitura.fromJSON(partitura));
+        this._partitures = partitures.map(partitura => Partitura.fromJSON(partitura));
+        return this._partitures;
     }
 
     async delete(id) {
-        const fetchDelete = await fetch(this._DELETE, { method: 'POST', body: JSON.stringify({ id: id }) });
+        const fetchDelete = await fetch(this._URL + "/piano/nologin/score/delete",
+            { method: 'POST', body: JSON.stringify({ id: id }) });
+
         const deleted = await fetchDelete.json();
         return deleted;
     }
 
     async getPartituraById(id) {
-        const fetchPartitura = await fetch(this._GET, { method: 'POST', body: JSON.stringify({ id: id }) });
+        const fetchPartitura = await fetch(this._URL + "/piano/nologin/score/get",
+            { method: 'POST', body: JSON.stringify({ id: id }) });
+
         const partitura = await fetchPartitura.json();
         return Partitura.fromJSON(partitura);
     }
 
     async save(partitura) {
-        const fetchPartitura = await fetch(this._SAVE, { method: 'POST', body: JSON.stringify({ score: partitura }) });
+        const fetchPartitura = await fetch(this._URL + "/piano/nologin/score/save",
+            { method: 'POST', body: JSON.stringify({ score: partitura }) });
+
         const novaPartitura = await fetchPartitura.json();
         return novaPartitura;
     }
 
     addCerca(input) {
         this._cerca = [];
-        const notes = input.split(" ");
+        const notes = input
+            .split(" ")
+            .forEach(nota => this._cerca.push(nota));
 
-        notes.forEach((nota, index) => {
-            const esSostingut = nota.includes("#");
-            const novaNota = new Nota(++index, nota.toUpperCase(), esSostingut, null);
-            this._cerca.push(novaNota);
-        });
-
-        console.log(this._cerca);
+        const notesString = this._cerca.join(" ");
+        return this.cercador(notesString);
     }
 
-     cercador() {
-        //Notes buides
+    cercador(input) {
+        //Nomes amb s'array de partitures estatic per que tenen notes.
+        const notesString = partituresStatic.filter(({ notes }) => {
+            return notes.map(nota => nota.nom)
+                .join(" ")
+                .includes(input.toUpperCase());
+        })
+
+        const find = this._partitures.filter(partitura => {
+            return partitura.titol.toUpperCase().includes(input.toUpperCase())
+        });
+
+        return [...notesString, ...find];
     }
 
 }
