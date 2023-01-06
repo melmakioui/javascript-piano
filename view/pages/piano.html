@@ -109,10 +109,8 @@
                         e.currentTarget.notes = partitura.notes;
                         piano.autoPlay(e.currentTarget, partitura.notes)
                     });
-                }
+                } else button.innerHTML = 'Play <small>N/A</small>'
 
-                if (partitura.notes.length === 0)
-                    button.innerHTML = 'Play <small>N/A</small>'
 
                 divPartitura.appendChild(span)
                 divPartitura.appendChild(button)

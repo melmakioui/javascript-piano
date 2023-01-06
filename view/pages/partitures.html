@@ -33,21 +33,12 @@
 
         "use strict"
         import { PartituraService } from "../../service/PartituraService.js";
-        import { obrirLogin, getUrlParameter } from "../../utils/Utils.js";
+        import { obrirLogin } from "../../utils/Utils.js";
 
         (async () => {
             obrirLogin();
             const partituraService = PartituraService.getInstance();
             const partitures = await partituraService.getPartitures();
-
-            const eliminar = getUrlParameter('del');
-            if (eliminar) {
-                const result = await partituraService.delete(eliminar);
-                if (result.notifyType === "SUCCESS"){
-                    alert('Partitura esborrada');
-                    window.location.href = "partitures.html";
-                }
-            }
 
             pinta(partitures);
         })();
@@ -89,7 +80,7 @@
                 delBtn.innerHTML =  '<i class="fa fa-trash"></i>'
                 delBtn.addEventListener('click',()=> {
                     const confirmacio = window.confirm(`Estas segur que vols eliminar "${partitura.titol}"?`)
-                    if(confirmacio) window.location.href = `partitures.html?del=${partitura.id}` 
+                    if(confirmacio) borraPartitura(partitura.id) 
                 })
                 
                 const editBtn = document.createElement('button');
@@ -115,6 +106,15 @@
             });
 
             div.appendChild(table);
+        }
+
+        async function borraPartitura(id) {
+
+            const partituraService = PartituraService.getInstance();
+            const result = await partituraService.delete(id);
+
+            if (result.notifyType === "SUCCESS") alert('Partitura esborrada');
+            window.location.href = "partitures.html";
         }
 
     </script>
