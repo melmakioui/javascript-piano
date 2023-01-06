@@ -1,8 +1,10 @@
 import { Tecla } from "./Tecla.js";
+import { Cronometre } from "../crono/Cronometre.js";
 
 export class Piano {
 
     constructor() {
+        this.interval;
         this.tecles = [];
         this.notes = ["do", "do-sust", "re", "re-sust", "mi", "fa", "fa-sust", "sol", "sol-sust", "la", "la-sust", "si", "do7"];
 
@@ -13,6 +15,7 @@ export class Piano {
         });
         this.injectaAudio();
         this.activaTecles();
+        this.crono = new Cronometre();
     }
 
 
@@ -36,6 +39,34 @@ export class Piano {
         audio.play();
     }
 
+    autoPlay(DOMElement, partitura) {
+        this._stopAutoPlay();
+        const teclesDOM = document.querySelectorAll('.tecla');
+        const tecles = [...teclesDOM].map(teclaDOM => teclaDOM.getAttribute("data-note"));
+        const partituraAutoPlay = partitura.map(partitura => partitura.nom);
+        const autoPlay = partituraAutoPlay.map(nota => tecles.indexOf(nota));
+        const display = DOMElement.display;
+
+        this.crono.setDisplay(DOMElement)
+        this.crono.reset()
+        this.crono.start()
+
+        let idx = 0;
+        this.interval = setInterval(() => {
+            if (idx === autoPlay.length - 1) {
+                this._stopAutoPlay()
+                this.crono.stop();
+                DOMElement.innerHTML = display;
+            }
+            teclesDOM[autoPlay[idx]].click();
+            idx++;
+        }, 1000)
+    }
+
+    _stopAutoPlay() {
+        clearInterval(this.interval);
+    }
+
     activaTecles() {
         const teclesDOM = document.querySelectorAll('.tecla');
         const tecles = ['A', 'W', 'S', 'E', 'D', 'F', 'T', 'G', 'Y', 'H', 'U', 'J', 'K'];
@@ -47,6 +78,6 @@ export class Piano {
         });
     }
 
-    //TODO: Autoplay fins que les notes siguine visibles
+
 
 }
