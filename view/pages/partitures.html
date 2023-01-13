@@ -59,56 +59,45 @@
                         <th>IDIOMA ORIGINAL</th>
                         <th>ACCIONS</th>
                     </tr>
-                `
+                `;
             table.appendChild(thead);
             table.appendChild(tbody);
-
 
             partitures.forEach((partitura, index) => {
 
                 const tr = document.createElement('tr');
-                const id = document.createElement('td');
-                id.setAttribute('id', partitura.id);
-                id.innerHTML = partitura.id;
+                tr.innerHTML = `
+                <td>${partitura.titol}</td>
+                <td>${partitura.idiomaOriginal.toUpperCase()}</td>
+                `;
 
-                const titol = document.createElement('td');
-                const idioma = document.createElement('td');
                 const accions = document.createElement('td');
 
                 const delBtn = document.createElement('button');
-                delBtn.setAttribute('class','btn-crud')
-                delBtn.innerHTML =  '<i class="fa fa-trash"></i>'
+                delBtn.setAttribute('class','btn-crud');
+                delBtn.innerHTML =  '<i class="fa fa-trash"></i>';
                 delBtn.addEventListener('click',()=> {
-                    const confirmacio = window.confirm(`Estas segur que vols eliminar "${partitura.titol}"?`)
-                    if(confirmacio) borraPartitura(partitura.id) 
-                })
+                    const confirmacio = window.confirm(`Estas segur que vols eliminar "${partitura.titol}"?`);
+                    if(confirmacio) eliminaPartitura(partitura.id);
+                });
                 
                 const editBtn = document.createElement('button');
-                editBtn.setAttribute('class','btn-crud')
-                editBtn.innerHTML =  '<i class="fa fa-pencil"></i>'
+                editBtn.setAttribute('class','btn-crud');
+                editBtn.innerHTML =  '<i class="fa fa-pencil"></i>';
                 editBtn.addEventListener('click',()=> {
-                    window.location.href = `partitura.html?edit=${partitura.id}`
-                })
-                
-                titol.innerHTML = partitura.titol;
-                idioma.innerHTML = partitura.idiomaOriginal.toUpperCase(),
-                                
-
-                id.hidden = true
+                    window.location.href = `partitura.html?edit=${partitura.id}`;
+                });
+                                                
                 accions.appendChild(editBtn);
                 accions.appendChild(delBtn);
-                tr.appendChild(id);
-                tr.appendChild(titol);
-                tr.appendChild(idioma);
                 tr.appendChild(accions);
-                tr.setAttribute('id', `${partitura.id}`);
                 tbody.appendChild(tr);
             });
 
             div.appendChild(table);
         }
 
-        async function borraPartitura(id) {
+        async function eliminaPartitura(id) {
 
             const partituraService = PartituraService.getInstance();
             const result = await partituraService.delete(id);

@@ -8,7 +8,10 @@ export class Nota {
 
     static fromJSON(nota) {
         return {
-            
+            id: nota.idnota,
+            nom: nota.nom,
+            alteracio: nota.alteracio,
+            ordre: nota.ordre
         }
     }
 }

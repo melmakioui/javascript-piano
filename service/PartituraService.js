@@ -29,7 +29,17 @@ export class PartituraService {
         { method: 'POST' });
         
         const partitures = await fetchPartitures.json();
-        this._partitures = partitures.map(partitura => Partitura.fromJSON(partitura));
+    
+        this._partitures = partitures.map(partitura => {
+            const notes = partitura.notes.map(nota =>{
+                if(nota.nom === "DO_AGUT") nota.nom = "DO7";
+                nota.alteracio = (nota.alteracio === "SOSTINGUT");
+                return Nota.fromJSON(nota)
+            }).sort((a, b) => a.ordre - b.ordre);
+
+            partitura.notes = notes;
+            return Partitura.fromJSON(partitura);
+        });
         return this._partitures;
     }
 
